@@ -23,6 +23,7 @@ subImageButtons.forEach(subImageButton => {
     }
 });
 
+console.log(cartButton);
 ////// 상품을 카트에 추가하기
 cartButton.onclick = () => {
     const csrfToken = document.querySelector('meta[name=_csrf]').getAttribute('content');

@@ -15,10 +15,6 @@ import java.util.List;
 public class OrderService {
     @Autowired private OrderMapper orderMapper;
 
-    // 해당 유저가 주문하려는 상품들을 장바구니에서 가져오기 
-    public List<CartDTO> get_carts_by_numbers(List<Integer> cartNumbers, UserDTO user){
-        return orderMapper.selectCartsByNumberAndUser(cartNumbers, user);
-    }
 
     // 해당 유저의 장바구니 item들을 가져오기
     public List<CartDTO> get_carts_by_user(UserDTO user){
@@ -68,9 +64,10 @@ public class OrderService {
     public Integer calculate_total_price(List<CartDTO> carts){
         return carts.parallelStream().mapToInt(cart -> {
             ProductDTO product = cart.getProduct();
+            System.out.println(cart);
             Integer productPrice = product.getPrice();
             Integer amount = cart.getAmount();
-
+            System.out.println(amount);
             return (productPrice) * amount;
         }).sum();
     }

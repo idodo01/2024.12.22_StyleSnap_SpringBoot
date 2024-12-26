@@ -3,22 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ido.style.mapper.OrderMapper">
-    <resultMap id="cartWithCartOptionMap" type="CartDTO">
+    <resultMap id="cartMap" type="CartDTO">
         <id property="no" column="cart_no" />
         <result property="amount" column="cart_amount" />
-        <association property="product" javaType="ProductDTO" resultMap="ido.style.mapper.ProductMapper.productWithImageAndOptionMap" />
+        <association property="product" javaType="ProductDTO" resultMap="ido.style.mapper.ProductMapper.productWithImageMap" />
     </resultMap>
 
-    <select id="selectCartsByNumberAndUser" resultType="CartDTO" resultMap="cartWithCartOptionMap">
-        SELECT * FROM `select_carts_by_user_view`
-        WHERE `user_id` = #{user.id} AND `cart_no` IN
-        <foreach collection="cartNumbers" item="number" open="(" separator="," close=")">
-            #{number}
-        </foreach>
-    </select>
-
-
-    <select id="selectCartsByUser" resultType="CartDTO" resultMap="cartWithCartOptionMap">
+    <select id="selectCartsByUser" resultType="CartDTO" resultMap="cartMap">
         SELECT * FROM `select_carts_by_user_view`
         WHERE `user_id` = #{id}
     </select>
